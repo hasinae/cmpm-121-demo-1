@@ -26,8 +26,28 @@ button.addEventListener("click", () => {
   counterDisplay.innerHTML = `${counter} cherry points 🍒`;
 });
 
-// Step 3: Automatic Clicking
-setInterval(() => {
-    counter++;
-    counterDisplay.innerHTML = `${counter} cherry points 🍒`;
-}, 1000);
+// // Step 3: Automatic Clicking
+// setInterval(() => {
+//   counter++;
+//   counterDisplay.innerHTML = `${counter} cherry points 🍒`;
+// }, 1000);
+
+// Step 4: Continuous Growth
+let start: number | undefined;
+
+function step(timestamp: number) {
+  if (start === undefined) {
+      start = timestamp;
+  }
+  
+  const elapsed = timestamp - start;
+
+  counter += elapsed / 1000;
+  counterDisplay.innerHTML = `${counter.toFixed(2)} cherry points 🍒`;
+
+  start = timestamp;
+  
+  requestAnimationFrame(step);
+}
+
+requestAnimationFrame(step);
