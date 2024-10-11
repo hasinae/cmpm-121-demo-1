@@ -22,6 +22,12 @@ counterDisplay.innerHTML = `${counter} cherry points 🍒`;
 app.append(counterDisplay);
 
 button.addEventListener("click", () => {
+  counter++;
+  counterDisplay.innerHTML = `${counter} cherry points 🍒`;
+});
+
+// Step 3: Automatic Clicking
+setInterval(() => {
     counter++;
     counterDisplay.innerHTML = `${counter} cherry points 🍒`;
-});
+}, 1000);
