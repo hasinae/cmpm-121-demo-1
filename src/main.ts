@@ -10,7 +10,7 @@
 // app.append(header);
 
 // // Initialize growth rate to zero
-// let growthRate: number = 0; 
+// let growthRate: number = 0;
 
 // // Upgrade tracking
 // let upgradeACount = 0;
@@ -37,22 +37,22 @@
 // button.addEventListener("click", () => {
 //   counter++;
 //   counterDisplay.innerHTML = `${Math.floor(counter)} cherry points 🍒`;
-//   checkUpgradeAvailability(); 
+//   checkUpgradeAvailability();
 // });
 
 // // Step 5: Purchasing an upgrade
 // const upgradeButton = document.createElement("button");
 // upgradeButton.innerHTML = "Purchase Upgrade (10 points)";
-// upgradeButton.disabled = true; 
+// upgradeButton.disabled = true;
 // app.append(upgradeButton);
 
 // upgradeButton.addEventListener("click", () => {
 //   if (counter >= 10) {
-//       counter -= 10; 
+//       counter -= 10;
 //       growthRate += 1;
-      
+
 //       counterDisplay.innerHTML = `${Math.floor(counter)} cherry points 🍒`;
-//       checkUpgradeAvailability(); 
+//       checkUpgradeAvailability();
 //   }
 // });
 
@@ -61,7 +61,6 @@
 // }
 
 // // Step 6: Multiple upgrades and status
-
 
 // // Step 4: Continuous Growth based on Growth Rate
 // let start: number | undefined;
@@ -85,7 +84,6 @@
 // // Start the animation loop
 // requestAnimationFrame(step);
 
-
 import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
@@ -98,7 +96,7 @@ header.innerHTML = gameName;
 app.append(header);
 
 // Initialize growth rate to zero
-let growthRate: number = 0; 
+let growthRate: number = 0;
 let counter: number = 0; // Initialize counter
 
 // Upgrade tracking
@@ -129,15 +127,27 @@ button.addEventListener("click", () => {
 });
 
 // Step 6: Purchasing upgrades
-const upgradeAButton = createUpgradeButton("Purchase Upgrade A (10 points)", 10, 0.1);
-const upgradeBButton = createUpgradeButton("Purchase Upgrade B (100 points)", 100, 2.0);
-const upgradeCButton = createUpgradeButton("Purchase Upgrade C (1000 points)", 1000, 50.0);
+const upgradeAButton = createUpgradeButton(
+  "Purchase Upgrade A (10 points)",
+  10,
+  0.1,
+);
+const upgradeBButton = createUpgradeButton(
+  "Purchase Upgrade B (100 points)",
+  100,
+  2.0,
+);
+const upgradeCButton = createUpgradeButton(
+  "Purchase Upgrade C (1000 points)",
+  1000,
+  50.0,
+);
 
 // Function to create an upgrade button
 function createUpgradeButton(label: string, cost: number, growth: number) {
   const button = document.createElement("button");
   button.innerHTML = label;
-  button.disabled = true; 
+  button.disabled = true;
   app.append(button);
 
   button.addEventListener("click", () => {
