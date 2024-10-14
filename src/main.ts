@@ -20,21 +20,23 @@ let cherryOrchardCount = 0;
 // Price increase factor
 const priceIncreaseFactor = 1.15;
 
-// Define available items
 interface Item {
   name: string;
   cost: number;
   rate: number;
+  description: string;
 }
 
 const availableItems: Item[] = [
-  { name: "Cherry Seed", cost: 10, rate: 0.1 },
-  { name: "Cherry Tree", cost: 100, rate: 2 },
-  { name: "Cherry Orchard", cost: 1000, rate: 50 },
+  { name: "Cherry Seed", cost: 10, rate: 0.1, description: "A tiny seed that grows into a cherry tree." },
+  { name: "Cherry Tree", cost: 100, rate: 2, description: "A robust tree that produces cherries daily." },
+  { name: "Cherry Orchard", cost: 1000, rate: 50, description: "A sprawling orchard with countless cherry trees." },
+  { name: "Cherry Picker", cost: 5000, rate: 100, description: "A specialized tool to pick cherries efficiently." },
+  { name: "Cherry Festival", cost: 10000, rate: 200, description: "An event that attracts cherry lovers from afar." },
 ];
 
 // Create buttons for upgrades
-const upgradeButtons = availableItems.map(item => createUpgradeButton(item.name, item.cost, item.rate));
+const upgradeButtons = availableItems.map(item => createUpgradeButton(item.name, item.cost, item.rate, item.description));
 
 // Status Displays
 const statusDisplay = document.createElement("div");
@@ -60,8 +62,14 @@ button.addEventListener("click", () => {
   checkUpgradeAvailability(); 
 });
 
+// Create a display area for item descriptions
+const descriptionDisplay = document.createElement("div");
+descriptionDisplay.style.margin = "20px 0";
+descriptionDisplay.style.fontSize = "16px";
+app.append(descriptionDisplay);
+
 // Function to create an upgrade button
-function createUpgradeButton(label: string, initialCost: number, growth: number) {
+function createUpgradeButton(label: string, initialCost: number, growth: number, description: string) {
   let cost = initialCost;
 
   const button = document.createElement("button");
@@ -71,6 +79,16 @@ function createUpgradeButton(label: string, initialCost: number, growth: number)
   button.disabled = true;
   app.append(button);
 
+  // Update description display on hover
+  button.addEventListener("mouseenter", () => {
+    descriptionDisplay.innerHTML = description;
+  });
+
+  // Clear description when mouse leaves
+  button.addEventListener("mouseleave", () => {
+    descriptionDisplay.innerHTML = "";
+  });
+
   button.addEventListener("click", () => {
     if (counter >= cost) {
       counter -= cost; 
@@ -78,7 +96,6 @@ function createUpgradeButton(label: string, initialCost: number, growth: number)
 
       updateUpgradeCount(label); 
 
-      // Step 7: Increase cost by 15% after each purchase
       cost *= priceIncreaseFactor;
       button.innerHTML = `${label} (${cost.toFixed(2)} cherries)`; 
 
@@ -130,4 +147,5 @@ function step(timestamp: number) {
   requestAnimationFrame(step);
 }
 
+// Start the animation loop
 requestAnimationFrame(step);
