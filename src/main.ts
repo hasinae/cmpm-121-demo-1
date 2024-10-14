@@ -13,26 +13,28 @@ let growthRate: number = 0; // Initialize growth rate to zero
 let counter: number = 0; // Initialize counter
 
 // Upgrade tracking
-let upgradeACount = 0;
-let upgradeBCount = 0;
-let upgradeCCount = 0;
+let cherrySeedCount = 0;
+let cherryTreeCount = 0;
+let cherryOrchardCount = 0;
 
 // Price increase factor
 const priceIncreaseFactor = 1.15;
 
 // Status Displays
 const statusDisplay = document.createElement("div");
-statusDisplay.innerHTML = `Growth Rate: ${growthRate.toFixed(1)} cherry points/sec<br>A: ${upgradeACount}, B: ${upgradeBCount}, C: ${upgradeCCount}`;
+statusDisplay.innerHTML = `Growth Rate: ${growthRate.toFixed(1)} cherries/sec<br>Seeds: ${cherrySeedCount}, Trees: ${cherryTreeCount}, Orchards: ${cherryOrchardCount}`;
 app.append(statusDisplay);
 
 // Counter Display
 const counterDisplay = document.createElement("div");
-counterDisplay.innerHTML = `${Math.floor(counter)} cherry points 🍒`;
+counterDisplay.innerHTML = `${Math.floor(counter)} cherries 🍒`;
 app.append(counterDisplay);
 
 // Step 1: A button you can click
 const button = document.createElement("button");
-button.innerHTML = "Click 🍒! ";
+button.innerHTML = "Pick Cherries 🍒";
+button.style.fontSize = "20px";
+button.style.padding = "15px";
 app.append(button);
 
 // Main click event to increase the counter
@@ -42,17 +44,19 @@ button.addEventListener("click", () => {
   checkUpgradeAvailability(); // Check upgrade availability after click
 });
 
-// Step 6: Purchasing upgrades with increasing cost
-const upgradeAButton = createUpgradeButton("A", 10, 0.1);
-const upgradeBButton = createUpgradeButton("B", 100, 2.0);
-const upgradeCButton = createUpgradeButton("C", 1000, 50.0);
+// Step 8: Redesign upgrade buttons to match the cherry theme
+const cherrySeedButton = createUpgradeButton("Cherry Seed (10 cherries)", 10, 0.1, 'Seeds');
+const cherryTreeButton = createUpgradeButton("Cherry Tree (100 cherries)", 100, 2.0, 'Trees');
+const cherryOrchardButton = createUpgradeButton("Cherry Orchard (1000 cherries)", 1000, 50.0, 'Orchards');
 
 // Function to create an upgrade button
-function createUpgradeButton(type: string, initialCost: number, growth: number) {
+function createUpgradeButton(label: string, initialCost: number, growth: number, type: string) {
   let cost = initialCost;
 
   const button = document.createElement("button");
-  button.innerHTML = `Purchase Upgrade ${type} (${cost.toFixed(2)} points)`;
+  button.innerHTML = label;
+  button.style.margin = "10px";
+  button.style.padding = "10px";
   button.disabled = true;
   app.append(button);
 
@@ -65,7 +69,7 @@ function createUpgradeButton(type: string, initialCost: number, growth: number) 
 
       // Step 7: Increase cost by 15% after each purchase
       cost *= priceIncreaseFactor; // Increase the cost for the next purchase
-      button.innerHTML = `Purchase Upgrade ${type} (${cost.toFixed(2)} points)`; // Update button text
+      button.innerHTML = `${type === 'Seeds' ? 'Cherry Seed' : type === 'Trees' ? 'Cherry Tree' : 'Cherry Orchard'} (${cost.toFixed(2)} cherries)`; // Update button text
 
       updateCounterDisplay(); // Update counter display
       checkUpgradeAvailability(); // Check if upgrades can be purchased
@@ -77,28 +81,28 @@ function createUpgradeButton(type: string, initialCost: number, growth: number) 
 
 // Function to update the counts of purchased upgrades
 function updateUpgradeCount(type: string) {
-  if (type === "A") upgradeACount++;
-  else if (type === "B") upgradeBCount++;
-  else if (type === "C") upgradeCCount++;
+  if (type === "Seeds") cherrySeedCount++;
+  else if (type === "Trees") cherryTreeCount++;
+  else if (type === "Orchards") cherryOrchardCount++;
 
   updateStatusDisplay(); // Update status display
 }
 
 // Function to update the counter display
 function updateCounterDisplay() {
-  counterDisplay.innerHTML = `${Math.floor(counter)} cherry points 🍒`;
+  counterDisplay.innerHTML = `${Math.floor(counter)} cherries 🍒`;
 }
 
 // Function to update the status display
 function updateStatusDisplay() {
-  statusDisplay.innerHTML = `Growth Rate: ${growthRate.toFixed(1)} cherry points/sec<br>A: ${upgradeACount}, B: ${upgradeBCount}, C: ${upgradeCCount}`;
+  statusDisplay.innerHTML = `Growth Rate: ${growthRate.toFixed(1)} cherries/sec<br>Seeds: ${cherrySeedCount}, Trees: ${cherryTreeCount}, Orchards: ${cherryOrchardCount}`;
 }
 
 // Function to check upgrade availability
 function checkUpgradeAvailability() {
-  upgradeAButton.disabled = counter < 10;
-  upgradeBButton.disabled = counter < 100;
-  upgradeCButton.disabled = counter < 1000;
+  cherrySeedButton.disabled = counter < 10;
+  cherryTreeButton.disabled = counter < 100;
+  cherryOrchardButton.disabled = counter < 1000;
 }
 
 // Step 4: Continuous Growth based on Growth Rate
